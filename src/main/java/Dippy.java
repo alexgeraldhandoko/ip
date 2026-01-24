@@ -16,8 +16,17 @@ public class Dippy {
      * Outputs the default greeting message to the standard output.
      */
     public static void greet() {
+        // This ASCII art was generated from:
+        // https://patorjk.com/software/taag/
+        String logo = " ______     _                            \n" +
+                "|_   _ `.  (_)                           \n" +
+                "  | | `. \\ __  _ .--.   _ .--.   _   __  \n" +
+                "  | |  | |[  |[ '/'`\\ \\[ '/'`\\ \\[ \\ [  ] \n" +
+                " _| |_.' / | | | \\__/ | | \\__/ | \\ '/ /  \n" +
+                "|______.' [___]| ;.__/  | ;.__/[\\_:  /   \n" +
+                "              [__|     [__|     \\__.'    \n\n";
         String greeting = "Hello! I'm Dippy\nWhat can I do for you?\n";
-        System.out.print(wrap(greeting));
+        System.out.print(wrap(logo + greeting));
     }
 
     /**
