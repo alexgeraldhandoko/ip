@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Dippy {
     private static final String horizontalLine = "________________________________________"
@@ -40,7 +41,7 @@ public class Dippy {
 
     public static void execute() {
         // Prepare list of items for user to store into
-        ArrayList<String> items = new ArrayList<>();
+        ArrayList<Task> tasks = new ArrayList<>();
 
         while (true) {
             try {
@@ -57,17 +58,43 @@ public class Dippy {
                     break;
                 } else if (userInput.trim().equalsIgnoreCase("list")) {
                     StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < items.size(); i++) {
-                        sb.append((i + 1) + ". " + items.get(i) + "\n");
+                    for (int i = 0; i < tasks.size(); i++) {
+                        sb.append((i + 1) + ". " + tasks.get(i) + "\n");
                     }
                     String out = indent(sb.toString());
+                    System.out.println("Here are the tasks in your list:");
                     System.out.println(wrap(out));
+                } else if (userInput.trim().toLowerCase().matches("^mark\\s+\\d+$")) {
+                    // Initialise the StringBuilder for the print output
+                    StringBuilder sb = new StringBuilder();
+
+                    // Obtain the integer from the command and assign it to a variable
+                    Scanner sc = new Scanner(userInput);
+                    int index = 0; // Although initialising to a phony value is recommended against by CS2103,
+                    // Intellij complains if it is not initialised definitely later on
+                    while (sc.hasNext()) {
+                        if (sc.hasNextInt()) {
+                            index = sc.nextInt() - 1;
+                        } else {
+                            sc.next();
+                        }
+                    }
+
+                    // Mark the task with the corresponding input as done
+                    tasks.get(index).markAsDone();
+
+                    // Output the response message
+                    sb.append("Nice! I've marked this task as done:\n");
+                    sb.append(tasks.get(index) + "\n");
+                    String out = "Dippy:\n" + indent(sb.toString());
+                    out = wrap(out);
+                    System.out.print(out);
                 } else {
                     String out = "I've added the following item to your list:\n";
                     out += userInput;
                     out = indent(out);
                     out = "Dippy:\n" + out;
-                    items.add(userInput);
+                    tasks.add(new Task(userInput));
                     System.out.print(wrap(out));
                 }
             } catch (IOException e) {
