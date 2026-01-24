@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Dippy {
     private static final String horizontalLine = "________________________________________"
@@ -38,6 +39,9 @@ public class Dippy {
     }
 
     public static void execute() {
+        // Prepare list of items for user to store into
+        ArrayList<String> items = new ArrayList<>();
+
         while (true) {
             try {
                 // Store the whole input into a String
@@ -51,8 +55,20 @@ public class Dippy {
                 // * use trim() to get rid of newline characters in the "bye"
                 if (userInput.trim().equalsIgnoreCase("bye")) {
                     break;
+                } else if (userInput.trim().equalsIgnoreCase("list")) {
+                    StringBuilder sb = new StringBuilder();
+                    for (int i = 0; i < items.size(); i++) {
+                        sb.append((i + 1) + ". " + items.get(i) + "\n");
+                    }
+                    String out = indent(sb.toString());
+                    System.out.println(wrap(out));
                 } else {
-                    System.out.print(wrap("Dippy:\n" + userInput));
+                    String out = "I've added the following item to your list:\n";
+                    out += userInput;
+                    out = indent(out);
+                    out = "Dippy:\n" + out;
+                    items.add(userInput);
+                    System.out.print(wrap(out));
                 }
             } catch (IOException e) {
                 System.out.println("Failed to read user input.");
@@ -69,6 +85,27 @@ public class Dippy {
      */
     public static String wrap(String input) {
         return horizontalLine + input + horizontalLine;
+    }
+
+    /**
+     * Left indents every line in the string passed to the function
+     * @param input The input string the caller wants to indent
+     * @return The input but with left indentation
+     */
+    public static String indent(String input) {
+        String indentation = "    ";
+        // ChatGPT recommends to break by \R, representing any line break
+        // Obtain an array of individual lines from the input
+        String[] lines = input.split("\\R");
+
+        // Indent each of the line and add to a StringBuilder
+        StringBuilder sb = new StringBuilder();
+        for (String line : lines) {
+            sb.append(indentation + line + "\n");
+        }
+
+        // Output the String representation of the StringBuilder
+        return sb.toString();
     }
 
     /**
@@ -91,17 +128,28 @@ public class Dippy {
         StringBuilder instructions = new StringBuilder();
 
         // Craft the instructions
-        String instruction1 = "Type any message you like, followed by \"send\" in a new line!\n"
-                + "Below are special commands:\n";
-        String instruction2 = "* \"send\": You need to type \"send\" in a newline to send "
-                + "me your message.\n";
-        String instruction3 = "* \"bye\": To close this programme, you need to send me a whole "
-                + "message\ncontaining only \"bye\" followed by a newline, then \"send\"\n";
+        String instruction1 = """
+                Type any message you like, followed by "send" in a new line!
+                Below are special commands:
+                
+                """;
+        String instruction2 = """
+                * "send": You need to type "send" in a newline to send me your message
+                          (this applies to special commands as well).
+                """;
+        String instruction3 = """
+                * "list": Displays a list of items you have added so far
+                """;
+        String instruction4 = """
+                * "bye": To close this programme, you need to send me a whole message
+                         containing only "bye" followed by a newline, followed by "send"
+                """;
 
         // Gather the instructions inside the StringBuilder
         instructions.append(instruction1);
         instructions.append(instruction2);
         instructions.append(instruction3);
+        instructions.append(instruction4);
 
         // Print all instructions
         System.out.print(wrap(instructions.toString()));
