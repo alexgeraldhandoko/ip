@@ -63,11 +63,17 @@ public class Dippy {
                     displayList(tasks);
                 } else if (userInput.toLowerCase().matches("^mark\\s+\\d+$")) {
                     finishTask(tasks, userInput);
+                } else if (userInput.toLowerCase().matches("^delete\\s+\\d+$")) {
+                    deleteTask(tasks, userInput);
                 } else {
                     addTask(tasks, userInput);
                 }
             } catch (IOException e) {
                 System.out.println("Failed to read user input.");
+            } catch (DippyException e) {
+                String out = indent(e.getMessage());
+                out = "Dippy:\n" + out;
+                System.out.println(wrap(out));
             }
         }
     }
@@ -188,12 +194,16 @@ public class Dippy {
         System.out.print(out);
     }
 
-    public static void addTask(ArrayList<Task> tasks, String userInput) {
+    public static void addTask(ArrayList<Task> tasks, String userInput) throws DippyException {
         Scanner sc = new Scanner(userInput);
         String command = sc.next();
         String out = "Got it. I've added the following item to your list:\n";
         String taskName = "";
         if (command.equalsIgnoreCase("todo")) {
+            // Check if the task description exists
+            if (!sc.hasNext()) {
+                throw new DippyTodoException();
+            }
             // Gather the task name
             while (sc.hasNext()) {
                 taskName += sc.next() + " ";
@@ -271,10 +281,28 @@ public class Dippy {
             out = indent(out);
             out = "Dippy:\n" + out;
         } else {
-            out += "Please give any of the following valid task command:\n";
-            out += "* todo\n* event\n* deadline\n";
+            throw new DippyCommandNotFoundException();
         }
         out += "Now you have " + tasks.size() + " tasks in the list.\n";
         System.out.println(wrap(out));
+    }
+
+    public static void deleteTask(ArrayList<Task> tasks, String userInput) {
+        // Obtain the index from user input
+        Scanner sc = new Scanner(userInput);
+        sc.next();
+        int index = sc.nextInt();
+
+        // Remove task
+        Task removedTask = tasks.remove(index - 1);
+
+        // Craft output message
+        String out = "Noted. I've removed this task:\n";
+        out += indent(removedTask.toString()) + "\n";
+        out += "You now have " + tasks.size() + " tasks in the list.\n";
+        out = wrap(out);
+
+        // Print output message
+        System.out.println(out);
     }
 }

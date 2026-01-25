@@ -10,3 +10,8 @@ Level-1
 Level-2
 - Strings can be written in blocks as well, just like comments, if they get too
   long
+
+Level-5
+- In Java, the call to super(...) must be the first thing the constructor does, 
+  and you’re not allowed to read instance fields (like message) before the 
+  superclass constructor has run.

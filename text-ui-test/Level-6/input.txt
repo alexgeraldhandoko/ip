@@ -1,0 +1,14 @@
+todo eat
+send
+deadline project work /by 12 Nov
+send
+event meeting /from 2pm /to 5pm
+send
+list
+send
+mark 1
+send
+delete 1
+send
+bye
+send
