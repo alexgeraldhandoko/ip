@@ -11,12 +11,20 @@ public class Task {
         this.isDone = true;
     }
 
+    public boolean getIsDone() {
+        return this.isDone;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
     @Override
     public String toString() {
         if (isDone) {
-            return "[X] " + this.name;
+            return "[T][X] " + this.name;
         } else {
-            return "[ ] " + this.name;
+            return "[T][ ] " + this.name;
         }
     }
 }

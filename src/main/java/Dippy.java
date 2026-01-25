@@ -7,11 +7,13 @@ import java.util.Scanner;
 public class Dippy {
     private static final String horizontalLine = "________________________________________"
             + "______________________________\n";
+    private static final BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
 
     public static void main(String[] args) {
         greet();
         printInstructions();
         execute();
+        sayFarewell();
     }
 
     /**
@@ -43,65 +45,31 @@ public class Dippy {
         // Prepare list of items for user to store into
         ArrayList<Task> tasks = new ArrayList<>();
 
+        // Keep prompting user after every user input, unless they want to
+        // stop the programme
         while (true) {
             try {
                 // Store the whole input into a String
                 System.out.println("Type your message here:");
                 String userInput = gatherInput();
 
-                // Echo the user input back to standard output
-                // ChatGPT recommends:
-                // * use equalsIgnoreCase for cleaner code instead
-                //   of converting to lower case using .toLowerCase()
-                // * use trim() to get rid of newline characters in the "bye"
-                if (userInput.trim().equalsIgnoreCase("bye")) {
+                // ChatGPT recommends: use trim() to get rid of newline characters
+                userInput = userInput.trim();
+
+                // ChatGPT recommends: use equalsIgnoreCase instead of converting to lower case
+                if (userInput.equalsIgnoreCase("bye")) {
                     break;
-                } else if (userInput.trim().equalsIgnoreCase("list")) {
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 0; i < tasks.size(); i++) {
-                        sb.append((i + 1) + ". " + tasks.get(i) + "\n");
-                    }
-                    String out = indent(sb.toString());
-                    System.out.println("Here are the tasks in your list:");
-                    System.out.println(wrap(out));
-                } else if (userInput.trim().toLowerCase().matches("^mark\\s+\\d+$")) {
-                    // Initialise the StringBuilder for the print output
-                    StringBuilder sb = new StringBuilder();
-
-                    // Obtain the integer from the command and assign it to a variable
-                    Scanner sc = new Scanner(userInput);
-                    int index = 0; // Although initialising to a phony value is recommended against by CS2103,
-                    // Intellij complains if it is not initialised definitely later on
-                    while (sc.hasNext()) {
-                        if (sc.hasNextInt()) {
-                            index = sc.nextInt() - 1;
-                        } else {
-                            sc.next();
-                        }
-                    }
-
-                    // Mark the task with the corresponding input as done
-                    tasks.get(index).markAsDone();
-
-                    // Output the response message
-                    sb.append("Nice! I've marked this task as done:\n");
-                    sb.append(tasks.get(index) + "\n");
-                    String out = "Dippy:\n" + indent(sb.toString());
-                    out = wrap(out);
-                    System.out.print(out);
+                } else if (userInput.equalsIgnoreCase("list")) {
+                    displayList(tasks);
+                } else if (userInput.toLowerCase().matches("^mark\\s+\\d+$")) {
+                    finishTask(tasks, userInput);
                 } else {
-                    String out = "I've added the following item to your list:\n";
-                    out += userInput;
-                    out = indent(out);
-                    out = "Dippy:\n" + out;
-                    tasks.add(new Task(userInput));
-                    System.out.print(wrap(out));
+                    addTask(tasks, userInput);
                 }
             } catch (IOException e) {
                 System.out.println("Failed to read user input.");
             }
         }
-        sayFarewell();
     }
 
     /**
@@ -140,12 +108,11 @@ public class Dippy {
      * number of lines in the input
      */
     public static String gatherInput() throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String line = br.readLine();
+        String line = BR.readLine();
         StringBuilder sb = new StringBuilder();
         while (line != null && !(line.equalsIgnoreCase("send"))) {
             sb.append(line).append("\n");
-            line = br.readLine();
+            line = BR.readLine();
         }
         return sb.toString();
     }
@@ -180,5 +147,134 @@ public class Dippy {
 
         // Print all instructions
         System.out.print(wrap(instructions.toString()));
+    }
+
+    public static void displayList(ArrayList<Task> tasks) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1) + ". " + tasks.get(i) + "\n");
+        }
+        String out = "Here are the tasks in your list:\n";
+        out += indent(sb.toString());
+        out = indent(out);
+        out = "Dippy:\n" + out;
+        System.out.println(wrap(out));
+    }
+
+    public static void finishTask(ArrayList<Task> tasks, String userInput) {
+        // Initialise the StringBuilder for the print output
+        StringBuilder sb = new StringBuilder();
+
+        // Obtain the integer from the command and assign it to a variable
+        Scanner sc = new Scanner(userInput);
+        int index = 0; // Although initialising to a phony value is recommended against by CS2103,
+        // Intellij complains if it is not initialised definitely later on
+        while (sc.hasNext()) {
+            if (sc.hasNextInt()) {
+                index = sc.nextInt() - 1;
+            } else {
+                sc.next();
+            }
+        }
+
+        // Mark the task with the corresponding input as done
+        tasks.get(index).markAsDone();
+
+        // Output the response message
+        sb.append("Nice! I've marked this task as done:\n");
+        sb.append(tasks.get(index) + "\n");
+        String out = "Dippy:\n" + indent(sb.toString());
+        out = wrap(out);
+        System.out.print(out);
+    }
+
+    public static void addTask(ArrayList<Task> tasks, String userInput) {
+        Scanner sc = new Scanner(userInput);
+        String command = sc.next();
+        String out = "Got it. I've added the following item to your list:\n";
+        String taskName = "";
+        if (command.equalsIgnoreCase("todo")) {
+            // Gather the task name
+            while (sc.hasNext()) {
+                taskName += sc.next() + " ";
+            }
+
+            // Create the task with the corresponding name and add to the tasklist
+            Task newTask = new Task(taskName);
+            tasks.add(newTask);
+
+            // Craft the out message
+            out += newTask.toString() + "\n";
+            out = indent(out);
+            out = "Dippy:\n" + out;
+        } else if (command.equalsIgnoreCase("deadline")) {
+            // Gather the task name until the date description
+            while (sc.hasNext()) {
+                String tmp = sc.next();
+                if (tmp.equalsIgnoreCase("/by")) {
+                    break;
+                }
+                taskName += tmp + " ";
+            }
+            taskName = taskName.trim();
+
+            // Gather the task end date
+            String date = "";
+            while (sc.hasNext()) {
+                date += sc.next() + " ";
+            }
+            date = date.trim();
+
+            // Create the deadline task and add it to the tasklist
+            Task newTask = new Deadline(taskName, date);
+            tasks.add(newTask);
+
+            // Craft the out message
+            out += newTask.toString();
+            out = indent(out);
+            out = "Dippy:\n" + out;
+        } else if (command.equalsIgnoreCase("event")) {
+            // Gather the task name until the task description
+            while (sc.hasNext()) {
+                String tmp = sc.next();
+                if (tmp.equalsIgnoreCase("/from")) {
+                    break;
+                }
+                taskName += tmp + " ";
+            }
+            taskName = taskName.trim();
+
+            // Gather the start date
+            String startDate = "";
+            while (sc.hasNext()) {
+                String tmp = sc.next();
+                if (tmp.equalsIgnoreCase("/to")) {
+                    break;
+                }
+                startDate += tmp + " ";
+            }
+            startDate = startDate.trim();
+
+            // Gather the end date
+            String endDate = "";
+            while (sc.hasNext()) {
+                endDate += sc.next() + " ";
+            }
+            endDate = endDate.trim();
+
+            // Create the new deadline task and add it to the task list
+            Task newTask = new Event(taskName, startDate, endDate);
+            tasks.add(newTask);
+
+            // Craft the out message
+            out += newTask.toString();
+            out = indent(out);
+            out = "Dippy:\n" + out;
+        } else {
+            out += "Please give any of the following valid task command:\n";
+            out += "* todo\n* event\n* deadline\n";
+        }
+        out += "Now you have " + tasks.size() + " tasks in the list.\n";
+        System.out.println(wrap(out));
     }
 }
