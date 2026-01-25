@@ -1,0 +1,50 @@
+______________________________________________________________________
+ ______     _                            
+|_   _ `.  (_)                           
+  | | `. \ __  _ .--.   _ .--.   _   __  
+  | |  | |[  |[ '/'`\ \[ '/'`\ \[ \ [  ] 
+ _| |_.' / | | | \__/ | | \__/ | \ '/ /  
+|______.' [___]| ;.__/  | ;.__/[\_:  /   
+              [__|     [__|     \__.'    
+
+Hello! I'm Dippy
+What can I do for you?
+______________________________________________________________________
+______________________________________________________________________
+Type any message you like, followed by "send" in a new line!
+Below are special commands:
+
+* "send": You need to type "send" in a newline to send me your message
+          (this applies to special commands as well).
+* "list": Displays a list of items you have added so far
+* "bye": To close this programme, you need to send me a whole message
+         containing only "bye" followed by a newline, followed by "send"
+______________________________________________________________________
+Type your message here:
+______________________________________________________________________
+Dippy:
+    Got it. I've added the following item to your list:
+    [T][ ] eat milo 
+Now you have 1 tasks in the list.
+______________________________________________________________________
+
+Type your message here:
+______________________________________________________________________
+Dippy:
+    Oops! The description of a todo task cannot be empty.
+______________________________________________________________________
+
+Type your message here:
+______________________________________________________________________
+Dippy:
+     Oops! I don't know what that means :(
+     Please give any of the following valid task commands:
+         * todo [task description]
+         * event [task description] /by [deadline date]
+         * deadline [task description] /from [start date] to [end date]
+______________________________________________________________________
+
+Type your message here:
+______________________________________________________________________
+Bye. Hope to see you again soon!
+______________________________________________________________________
