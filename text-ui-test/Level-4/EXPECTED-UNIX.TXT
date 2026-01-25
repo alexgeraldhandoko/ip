@@ -1,0 +1,95 @@
+______________________________________________________________________
+ ______     _                            
+|_   _ `.  (_)                           
+  | | `. \ __  _ .--.   _ .--.   _   __  
+  | |  | |[  |[ '/'`\ \[ '/'`\ \[ \ [  ] 
+ _| |_.' / | | | \__/ | | \__/ | \ '/ /  
+|______.' [___]| ;.__/  | ;.__/[\_:  /   
+              [__|     [__|     \__.'    
+
+Hello! I'm Dippy
+What can I do for you?
+______________________________________________________________________
+______________________________________________________________________
+Type any message you like, followed by "send" in a new line!
+Below are special commands:
+
+* "send": You need to type "send" in a newline to send me your message
+          (this applies to special commands as well).
+* "list": Displays a list of items you have added so far
+* "bye": To close this programme, you need to send me a whole message
+         containing only "bye" followed by a newline, followed by "send"
+______________________________________________________________________
+Type your message here:
+______________________________________________________________________
+Dippy:
+    Got it. I've added the following item to your list:
+    [D][ ] return book (by: 12 Nov)
+Now you have 1 tasks in the list.
+______________________________________________________________________
+
+Type your message here:
+______________________________________________________________________
+Dippy:
+    Got it. I've added the following item to your list:
+    [E][ ] (from: 9pm to: 12am)
+Now you have 2 tasks in the list.
+______________________________________________________________________
+
+Type your message here:
+______________________________________________________________________
+Dippy:
+    Got it. I've added the following item to your list:
+    [T][ ] report 
+Now you have 3 tasks in the list.
+______________________________________________________________________
+
+Type your message here:
+______________________________________________________________________
+Dippy:
+    Nice! I've marked this task as done:
+    [D][X] return book (by: 12 Nov)
+______________________________________________________________________
+Type your message here:
+______________________________________________________________________
+Dippy:
+    Here are the tasks in your list:
+        1. [D][X] return book (by: 12 Nov)
+        2. [E][ ] (from: 9pm to: 12am)
+        3. [T][ ] report 
+______________________________________________________________________
+
+Type your message here:
+______________________________________________________________________
+Dippy:
+    Nice! I've marked this task as done:
+    [E][X] (from: 9pm to: 12am)
+______________________________________________________________________
+Type your message here:
+______________________________________________________________________
+Dippy:
+    Here are the tasks in your list:
+        1. [D][X] return book (by: 12 Nov)
+        2. [E][X] (from: 9pm to: 12am)
+        3. [T][ ] report 
+______________________________________________________________________
+
+Type your message here:
+______________________________________________________________________
+Dippy:
+    Nice! I've marked this task as done:
+    [T][X] report 
+______________________________________________________________________
+Type your message here:
+______________________________________________________________________
+Dippy:
+    Here are the tasks in your list:
+        1. [D][X] return book (by: 12 Nov)
+        2. [E][X] (from: 9pm to: 12am)
+        3. [T][X] report 
+______________________________________________________________________
+
+Type your message here:
+______________________________________________________________________
+Bye. Hope to see you again soon!
+______________________________________________________________________

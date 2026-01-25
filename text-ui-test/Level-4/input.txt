@@ -1,0 +1,20 @@
+deadline return book /by 12 Nov
+send
+event concert /from 9pm /to 12am
+send
+todo report
+send
+mark 1
+send
+list
+send
+mark 2
+send
+list
+send
+mark 3
+send
+list
+send
+bye
+send
