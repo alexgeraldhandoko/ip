@@ -243,7 +243,7 @@ public class Dippy {
             date = date.trim();
 
             // Create the deadline task and add it to the tasklist
-            newTask = new Deadline(taskName, date);
+            newTask = new Deadline(taskName, Parser.stringToDate(date));
             tasks.add(newTask);
 
             // Craft the out message
