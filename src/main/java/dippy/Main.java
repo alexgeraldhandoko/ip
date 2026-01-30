@@ -1,11 +1,12 @@
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.InputStreamReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
+package dippy;
 
-public class Dippy {
+import dippy.storage.Storage;
+import dippy.task.Task;
+import dippy.ui.Ui;
+
+import java.util.ArrayList;
+
+public class Main {
 
     public static void main(String[] args) {
         System.out.println("user.dir = " + System.getProperty("user.dir"));
