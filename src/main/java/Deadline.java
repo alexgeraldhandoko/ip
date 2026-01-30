@@ -1,12 +1,16 @@
-public class Deadline extends Task {
-    private String date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
-    public Deadline(String name, String date) {
+public class Deadline extends Task {
+    private LocalDate date;
+
+    public Deadline(String name, LocalDate date) {
         super(name);
         this.date = date;
     }
 
-    public String getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
 
@@ -14,7 +18,7 @@ public class Deadline extends Task {
         boolean isTaskDone = arr[1].equals("1") ? true : false;
         String taskName = arr[2];
         String deadlineDate = arr[3];
-        Deadline newTask = new Deadline(taskName, deadlineDate);
+        Deadline newTask = new Deadline(taskName, Parser.stringToDate(deadlineDate));
         return newTask;
     }
 
@@ -22,7 +26,8 @@ public class Deadline extends Task {
     public String saveFormat() {
         String taskType = "D";
         String oneOrZero = super.getDone() ? "1" : "0";
-        return taskType + " | " + oneOrZero + " | " + super.getName() + " | " + this.date;
+        return taskType + " | " + oneOrZero + " | " + super.getName() + " | "
+            + this.date.plus(0, ChronoUnit.YEARS);
     }
 
     @Override
@@ -33,7 +38,7 @@ public class Deadline extends Task {
         } else {
             out += "[ ] " + getName();
         }
-        out += " (by: " + this.date + ")";
+        out += " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         return out;
     }
 }
