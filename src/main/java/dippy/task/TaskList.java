@@ -1,3 +1,11 @@
+package dippy.task;
+
+import dippy.exception.DippyCommandNotFoundException;
+import dippy.exception.DippyException;
+import dippy.exception.DippyTodoException;
+import dippy.parser.Parser;
+import dippy.ui.Ui;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 

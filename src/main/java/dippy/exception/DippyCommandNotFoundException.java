@@ -1,3 +1,5 @@
+package dippy.exception;
+
 public class DippyCommandNotFoundException extends DippyException {
     public static final String message = """
         Oops! I don't know what that means :(

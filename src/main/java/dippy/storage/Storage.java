@@ -1,4 +1,13 @@
-import java.io.*;
+package dippy.storage;
+
+import dippy.task.Deadline;
+import dippy.task.Event;
+import dippy.task.Task;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Storage {
@@ -8,7 +17,7 @@ public class Storage {
             String line = br.readLine();
             ArrayList<Task> out = new ArrayList<>();
             // Expected line format:
-            // Task Type | done/not done | Task Name | Task Date
+            // dippy.task.Task Type | done/not done | dippy.task.Task Name | dippy.task.Task Date
             // T/D/E | %d |
             while (line != null) {
                 String[] arr = line.split(" \\| ");
