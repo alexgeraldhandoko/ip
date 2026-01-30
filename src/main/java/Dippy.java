@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ public class Dippy {
     private static final BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
 
     public static void main(String[] args) {
+        System.out.println("user.dir = " + System.getProperty("user.dir"));
         greet();
         printInstructions();
         execute();
@@ -43,7 +45,7 @@ public class Dippy {
 
     public static void execute() {
         // Prepare list of items for user to store into
-        ArrayList<Task> tasks = new ArrayList<>();
+        ArrayList<Task> tasks = Storage.load();
 
         // Keep prompting user after every user input, unless they want to
         // stop the programme
@@ -76,6 +78,7 @@ public class Dippy {
                 System.out.println(wrap(out));
             }
         }
+        Storage.save(tasks);
     }
 
     /**
@@ -195,10 +198,14 @@ public class Dippy {
     }
 
     public static void addTask(ArrayList<Task> tasks, String userInput) throws DippyException {
+        // Declare variables common to every kind of task to be added
         Scanner sc = new Scanner(userInput);
         String command = sc.next();
         String out = "Got it. I've added the following item to your list:\n";
         String taskName = "";
+        Task newTask;
+
+        // Create task and output message based on the kind of task
         if (command.equalsIgnoreCase("todo")) {
             // Check if the task description exists
             if (!sc.hasNext()) {
@@ -210,7 +217,7 @@ public class Dippy {
             }
 
             // Create the task with the corresponding name and add to the tasklist
-            Task newTask = new Task(taskName);
+            newTask = new Task(taskName);
             tasks.add(newTask);
 
             // Craft the out message
@@ -236,7 +243,7 @@ public class Dippy {
             date = date.trim();
 
             // Create the deadline task and add it to the tasklist
-            Task newTask = new Deadline(taskName, date);
+            newTask = new Deadline(taskName, date);
             tasks.add(newTask);
 
             // Craft the out message
@@ -273,7 +280,7 @@ public class Dippy {
             endDate = endDate.trim();
 
             // Create the new deadline task and add it to the task list
-            Task newTask = new Event(taskName, startDate, endDate);
+            newTask = new Event(taskName, startDate, endDate);
             tasks.add(newTask);
 
             // Craft the out message
