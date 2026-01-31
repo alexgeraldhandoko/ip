@@ -84,7 +84,10 @@ public class Ui {
                     TaskList.finishTask(tasks, userInput);
                 } else if (userInput.toLowerCase().matches("^delete\\s+\\d+$")) {
                     TaskList.deleteTask(tasks, userInput);
-                } else {
+                } else if (userInput.toLowerCase().matches("^find\\s+.+$")) {
+                    TaskList.findTask(tasks, userInput);
+                }
+                else {
                     TaskList.addTask(tasks, userInput);
                 }
             } catch (IOException e) {

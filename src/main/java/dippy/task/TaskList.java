@@ -115,6 +115,7 @@ public class TaskList {
         } else {
             throw new DippyCommandNotFoundException();
         }
+
         out += "Now you have " + tasks.size() + " tasks in the list.\n";
         System.out.println(Ui.wrap(out));
     }
@@ -192,5 +193,16 @@ public class TaskList {
         out = Ui.indent(out);
         out = "Dippy:\n" + out;
         System.out.println(Ui.wrap(out));
+    }
+
+    public static void findTask(ArrayList<Task> tasks, String userInput) {
+        ArrayList<Task> out = new ArrayList<>();
+        String keyword = userInput.substring(4).trim();
+        for (Task task : tasks) {
+            if (task.getName().contains(keyword)) {
+                out.add(task);
+            }
+        }
+        displayList(out);
     }
 }

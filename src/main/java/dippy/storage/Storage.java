@@ -17,7 +17,8 @@ public class Storage {
      */
     public static ArrayList<Task> load() {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("data/dippy.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(
+                "data/dippy.txt"));
             String line = br.readLine();
             ArrayList<Task> loadedTasks = new ArrayList<>();
             // Expected line format:
