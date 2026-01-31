@@ -15,13 +15,13 @@ public class Deadline extends Task {
     }
 
     public LocalDate getDate() {
-        return this.date;
+        return date;
     }
 
-    public static Deadline parseToTask(String[] arr) {
-        boolean isTaskDone = arr[1].equals("1") ? true : false;
-        String taskName = arr[2];
-        String deadlineDate = arr[3];
+    public static Deadline parseToTask(String[] fields) {
+        boolean isTaskDone = fields[1].equals("1") ? true : false;
+        String taskName = fields[2];
+        String deadlineDate = fields[3];
         Deadline newTask = new Deadline(taskName, Parser.stringToDate(deadlineDate));
         return newTask;
     }
@@ -31,7 +31,7 @@ public class Deadline extends Task {
         String taskType = "D";
         String oneOrZero = super.getDone() ? "1" : "0";
         return taskType + " | " + oneOrZero + " | " + super.getName() + " | "
-            + this.date.plus(0, ChronoUnit.YEARS);
+            + date.plus(0, ChronoUnit.YEARS);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class Deadline extends Task {
         } else {
             out += "[ ] " + getName();
         }
-        out += " (by: " + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        out += " (by: " + date.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
         return out;
     }
 }

@@ -11,11 +11,11 @@ public class Event extends Task {
     }
 
     public String getStartDate() {
-        return this.startDate;
+        return startDate;
     }
 
     public String getEndDate() {
-        return this.endDate;
+        return endDate;
     }
 
     @Override
@@ -26,11 +26,11 @@ public class Event extends Task {
             + startDate + " | " + endDate;
     }
 
-    public static Event parseToTask(String[] arr) {
-        boolean isTaskDone = arr[1].equals("1") ? true : false;
-        String taskName = arr[2];
-        String startDate = arr[3];
-        String endDate = arr[4];
+    public static Event parseToTask(String[] fields) {
+        boolean isTaskDone = fields[1].equals("1") ? true : false;
+        String taskName = fields[2];
+        String startDate = fields[3];
+        String endDate = fields[4];
         Event newTask = new Event(taskName, startDate, endDate);
         if (isTaskDone) {
             newTask.markAsDone();
@@ -46,7 +46,7 @@ public class Event extends Task {
         } else {
             out += "[ ] ";
         }
-        out += "(from: " + this.startDate + " to: " + this.endDate + ")";
+        out += "(from: " + startDate + " to: " + endDate + ")";
         return out;
     }
 }
