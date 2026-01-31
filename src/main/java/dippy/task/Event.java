@@ -10,10 +10,16 @@ public class Event extends Task {
         this.endDate = endDate;
     }
 
+    /**
+     * @return The start date of the Event task.
+     */
     public String getStartDate() {
         return this.startDate;
     }
 
+    /**
+     * @return The end date of the Event task.
+     */
     public String getEndDate() {
         return this.endDate;
     }
@@ -26,6 +32,12 @@ public class Event extends Task {
             + startDate + " | " + endDate;
     }
 
+    /**
+     * Parses the user input into its corresponding Event task object.
+     * @param arr The line containing the task from the user input that has
+     *            been split into individual Strings
+     * @return The Event task object that was represented by the user input
+     */
     public static Event parseToTask(String[] arr) {
         boolean isTaskDone = arr[1].equals("1") ? true : false;
         String taskName = arr[2];

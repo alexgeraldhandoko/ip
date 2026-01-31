@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Storage {
+    /**
+     * Loads a stored list of tasks from disk and returns it as an array of
+     * tasks to the caller.
+     */
     public static ArrayList<Task> load() {
         try {
             BufferedReader br = new BufferedReader(new FileReader("data/dippy.txt"));
@@ -40,6 +44,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves a list of tasks into the local disk.
+     * @param tasks The list of tasks that the caller wants to save
+     *              to the disk.
+     */
     public static void save(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         try {

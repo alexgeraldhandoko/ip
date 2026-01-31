@@ -18,6 +18,12 @@ public class Deadline extends Task {
         return this.date;
     }
 
+    /**
+     * Parses the user input into its corresponding Deadline task object.
+     * @param arr The line containing the task from the user input that has
+     *            been split into individual Strings
+     * @return The Deadline task object that was represented by the user input
+     */
     public static Deadline parseToTask(String[] arr) {
         boolean isTaskDone = arr[1].equals("1") ? true : false;
         String taskName = arr[2];
