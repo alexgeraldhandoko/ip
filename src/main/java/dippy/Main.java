@@ -8,6 +8,10 @@ import java.util.ArrayList;
 
 public class Main {
 
+    /**
+     * Starts up the Dippy chatbot.
+     * @param args Optional variadic command line arguments.
+     */
     public static void main(String[] args) {
         Ui.greet();
         Ui.printInstructions();
@@ -15,6 +19,9 @@ public class Main {
         Ui.sayFarewell();
     }
 
+    /**
+     * Executes the Dippy chatbot main logic.
+     */
     public static void execute() {
         // Prepare list of items for user to store into
         ArrayList<Task> tasks = Storage.load();

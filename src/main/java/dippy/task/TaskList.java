@@ -16,6 +16,12 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds the task into the task list that was given by parsing it first.
+     * @param tasks The list of tasks that want to receive the new task.
+     * @param userInput Task that the user wants to add to the list, in String format.
+     * @throws DippyException If the user input is in an invalid format.
+     */
     public static void addTask(ArrayList<Task> tasks, String userInput) throws DippyException {
         // Declare variables common to every kind of task to be added
         Scanner sc = new Scanner(userInput);
@@ -113,6 +119,12 @@ public class TaskList {
         System.out.println(Ui.wrap(out));
     }
 
+    /**
+     * Deletes the user-specified task from the given list of tasks.
+     * @param tasks The list of tasks from which the user wants to delete task.
+     * @param userInput The task from the list that the user wants to delete,
+     *                  in String format
+     */
     public static void deleteTask(ArrayList<Task> tasks, String userInput) {
         // Obtain the index from user input
         Scanner sc = new Scanner(userInput);
@@ -132,6 +144,12 @@ public class TaskList {
         System.out.println(out);
     }
 
+    /**
+     * Marks a user-specified task within a given list as done.
+     * @param tasks The list of tasks.
+     * @param userInput The task that the user wants to mark as done,
+     *                  in String format.
+     */
     public static void finishTask(ArrayList<Task> tasks, String userInput) {
         // Initialise the StringBuilder for the print output
         StringBuilder sb = new StringBuilder();
@@ -159,6 +177,11 @@ public class TaskList {
         System.out.print(out);
     }
 
+    /**
+     * Displays the user's current tasks to standard output.
+     * @param tasks The list of tasks that the user wants to display to
+     *              standard output.
+     */
     public static void displayList(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
