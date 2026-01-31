@@ -13,7 +13,8 @@ import java.util.ArrayList;
 public class Storage {
     public static ArrayList<Task> load() {
         try {
-            BufferedReader br = new BufferedReader(new FileReader("data/dippy.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(
+                "data/dippy.txt"));
             String line = br.readLine();
             ArrayList<Task> out = new ArrayList<>();
             // Expected line format:
