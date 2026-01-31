@@ -19,25 +19,25 @@ public class Storage {
         try {
             BufferedReader br = new BufferedReader(new FileReader("data/dippy.txt"));
             String line = br.readLine();
-            ArrayList<Task> out = new ArrayList<>();
+            ArrayList<Task> loadedTasks = new ArrayList<>();
             // Expected line format:
             // dippy.task.Task Type | done/not done | dippy.task.Task Name | dippy.task.Task Date
             // T/D/E | %d |
             while (line != null) {
-                String[] arr = line.split(" \\| ");
-                char taskType = arr[0].toCharArray()[0];
+                String[] tokens = line.split(" \\| ");
+                char taskType = tokens[0].toCharArray()[0];
                 Task newTask;
                 if (taskType == 'D') {
-                    newTask = Deadline.parseToTask(arr);
+                    newTask = Deadline.parseToTask(tokens);
                 } else if (taskType == 'E') {
-                    newTask = Event.parseToTask(arr);
+                    newTask = Event.parseToTask(tokens);
                 } else {
-                    newTask = Task.parseToTask(arr);
+                    newTask = Task.parseToTask(tokens);
                 }
-                out.add(newTask);
+                loadedTasks.add(newTask);
                 line = br.readLine();
             }
-            return out;
+            return loadedTasks;
         } catch (IOException e) {
             System.out.println("Failed to load tasks from file " + e.getMessage());
             return new ArrayList<>();

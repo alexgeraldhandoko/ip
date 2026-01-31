@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public class Ui {
-    private static final String horizontalLine = "________________________________________"
+    private static final String HORIZONTAL_LINE = "________________________________________"
         + "______________________________\n";
     private static final BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
 
@@ -118,7 +118,7 @@ public class Ui {
      * @param input The input string to be wrapped around horizontal lines
      */
     public static String wrap(String input) {
-        return horizontalLine + input + horizontalLine;
+        return HORIZONTAL_LINE + input + HORIZONTAL_LINE;
     }
 
     /**

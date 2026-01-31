@@ -1,7 +1,7 @@
 package dippy.exception;
 
 public class DippyCommandNotFoundException extends DippyException {
-    public static final String message = """
+    public static final String MESSAGE = """
         Oops! I don't know what that means :(
         Please give any of the following valid task commands:
             * todo [task description]
@@ -9,6 +9,6 @@ public class DippyCommandNotFoundException extends DippyException {
             * deadline [task description] /from [start date] to [end date]
        """;
     public DippyCommandNotFoundException() {
-        super(message);
+        super(MESSAGE);
     }
 }

@@ -5,7 +5,7 @@ public class Task {
     private String name;
 
     public Task(String name) {
-        this.isDone = false;
+        isDone = false;
         this.name = name;
     }
 
@@ -13,21 +13,21 @@ public class Task {
      * Marks the task as done.
      */
     public void markAsDone() {
-        this.isDone = true;
+        isDone = true;
     }
 
     /**
      * Returns whether the task is done or not.
      */
     public boolean getDone() {
-        return this.isDone;
+        return isDone;
     }
 
     /**
      * Returns the name of the task
      */
     public String getName() {
-        return this.name;
+        return name;
     }
 
     /**
@@ -36,19 +36,19 @@ public class Task {
      */
     public String saveFormat() {
         String taskType = "T";
-        String oneOrZero = this.isDone ? "1" : "0";
-        return taskType + " | " + oneOrZero + " | " + this.name;
+        String oneOrZero = isDone ? "1" : "0";
+        return taskType + " | " + oneOrZero + " | " + name;
     }
 
     /**
      * Parses the user input into its corresponding Task object.
-     * @param arr The line containing the task from the user input that has
+     * @param fields The line containing the task from the user input that has
      *            been split into individual Strings
      * @return The Task object that was represented by the user input
      */
-    public static Task parseToTask(String[] arr) {
-        boolean isTaskDone = arr[1].equals("1") ? true : false;
-        String taskName = arr[2];
+    public static Task parseToTask(String[] fields) {
+        boolean isTaskDone = fields[1].equals("1") ? true : false;
+        String taskName = fields[2];
         Task newTask = new Task(taskName);
         if (isTaskDone) {
             newTask.markAsDone();
@@ -59,9 +59,9 @@ public class Task {
     @Override
     public String toString() {
         if (isDone) {
-            return "[T][X] " + this.name;
+            return "[T][X] " + name;
         } else {
-            return "[T][ ] " + this.name;
+            return "[T][ ] " + name;
         }
     }
 }

@@ -14,14 +14,14 @@ public class Event extends Task {
      * @return The start date of the Event task.
      */
     public String getStartDate() {
-        return this.startDate;
+        return startDate;
     }
 
     /**
      * @return The end date of the Event task.
      */
     public String getEndDate() {
-        return this.endDate;
+        return endDate;
     }
 
     @Override
@@ -34,15 +34,15 @@ public class Event extends Task {
 
     /**
      * Parses the user input into its corresponding Event task object.
-     * @param arr The line containing the task from the user input that has
+     * @param fields The line containing the task from the user input that has
      *            been split into individual Strings
      * @return The Event task object that was represented by the user input
      */
-    public static Event parseToTask(String[] arr) {
-        boolean isTaskDone = arr[1].equals("1") ? true : false;
-        String taskName = arr[2];
-        String startDate = arr[3];
-        String endDate = arr[4];
+    public static Event parseToTask(String[] fields) {
+        boolean isTaskDone = fields[1].equals("1") ? true : false;
+        String taskName = fields[2];
+        String startDate = fields[3];
+        String endDate = fields[4];
         Event newTask = new Event(taskName, startDate, endDate);
         if (isTaskDone) {
             newTask.markAsDone();
@@ -58,7 +58,7 @@ public class Event extends Task {
         } else {
             out += "[ ] ";
         }
-        out += "(from: " + this.startDate + " to: " + this.endDate + ")";
+        out += "(from: " + startDate + " to: " + endDate + ")";
         return out;
     }
 }
