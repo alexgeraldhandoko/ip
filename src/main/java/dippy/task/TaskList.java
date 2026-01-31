@@ -104,7 +104,7 @@ public class TaskList {
             }
             endDate = endDate.trim();
 
-            // Create the new deadline task and add it to the task list
+            // Create the new event task and add it to the task list
             newTask = new Event(taskName, startDate, endDate);
             tasks.add(newTask);
 

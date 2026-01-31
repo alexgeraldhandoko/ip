@@ -58,7 +58,7 @@ public class Event extends Task {
         } else {
             out += "[ ] ";
         }
-        out += "(from: " + startDate + " to: " + endDate + ")";
+        out += getName() + " (from: " + startDate + " to: " + endDate + ")";
         return out;
     }
 }
