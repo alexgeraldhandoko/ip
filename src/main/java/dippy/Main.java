@@ -6,6 +6,9 @@ import dippy.ui.Ui;
 
 import java.util.ArrayList;
 
+/**
+ * Main programme entry point
+ */
 public class Main {
 
     /**
