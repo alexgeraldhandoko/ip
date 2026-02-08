@@ -2,14 +2,23 @@ package dippy;
 
 import dippy.storage.Storage;
 import dippy.task.Task;
+import dippy.ui.MainWindow;
 import dippy.ui.Ui;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Main programme entry point
  */
-public class Main {
+public class Main extends Application {
+
+    private Scene scene;
 
     /**
      * Starts up the Dippy chatbot.
@@ -34,5 +43,21 @@ public class Main {
         Ui.interact(tasks);
 
         Storage.save(tasks);
+    }
+
+    /**
+     * Executes the UI Dippy chatbot from the JavaFX UI
+     */
+    @Override
+    public void start(Stage stage) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+            AnchorPane ap = fxmlLoader.load();
+            scene = new Scene(ap);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
