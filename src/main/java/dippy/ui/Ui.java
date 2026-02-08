@@ -1,6 +1,8 @@
 package dippy.ui;
 
 import dippy.exception.DippyException;
+import dippy.logic.Response;
+import dippy.parser.Parser;
 import dippy.task.Task;
 import dippy.task.TaskList;
 
@@ -14,7 +16,7 @@ public class Ui {
         + "______________________________\n";
     private static final BufferedReader BR = new BufferedReader(new InputStreamReader(System.in));
 
-    public static void greet() {
+    public static String greet() {
         // This ASCII art was generated from:
         // https://patorjk.com/software/taag/
         String logo = " ______     _                            \n" +
@@ -26,11 +28,12 @@ public class Ui {
             "              [__|     [__|     \\__.'    \n\n";
         String greeting = "Hello! I'm Dippy\nWhat can I do for you?\n";
         System.out.print(wrap(logo + greeting));
+        return logo + greeting;
     }
 
-    public static void sayFarewell() {
+    public static String sayFarewell() {
         String farewell = "Bye. Hope to see you again soon!\n";
-        System.out.print(wrap(farewell));
+        return wrap(farewell);
     }
 
     public static void printInstructions() {
@@ -75,20 +78,9 @@ public class Ui {
                 // ChatGPT recommends: use trim() to get rid of newline characters
                 userInput = userInput.trim();
 
-                // ChatGPT recommends: use equalsIgnoreCase instead of converting to lower case
-                if (userInput.equalsIgnoreCase("bye")) {
+                Response response = Parser.parseUserInput(userInput);
+                if (response.getShouldExit()) {
                     break;
-                } else if (userInput.equalsIgnoreCase("list")) {
-                    TaskList.displayList(tasks);
-                } else if (userInput.toLowerCase().matches("^mark\\s+\\d+$")) {
-                    TaskList.finishTask(tasks, userInput);
-                } else if (userInput.toLowerCase().matches("^delete\\s+\\d+$")) {
-                    TaskList.deleteTask(tasks, userInput);
-                } else if (userInput.toLowerCase().matches("^find\\s+.+$")) {
-                    TaskList.findTask(tasks, userInput);
-                }
-                else {
-                    TaskList.addTask(tasks, userInput);
                 }
             } catch (IOException e) {
                 System.out.println("Failed to read user input.");

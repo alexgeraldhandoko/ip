@@ -2,6 +2,7 @@ package dippy;
 
 import dippy.storage.Storage;
 import dippy.task.Task;
+import dippy.task.TaskList;
 import dippy.ui.MainWindow;
 import dippy.ui.Ui;
 import javafx.application.Application;
@@ -40,6 +41,7 @@ public class Main extends Application {
 
         // Keep prompting user after every user input, unless they want to
         // stop the programme
+        TaskList.setTasks(tasks);
         Ui.interact(tasks);
 
         Storage.save(tasks);

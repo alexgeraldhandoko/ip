@@ -3,6 +3,7 @@ package dippy.task;
 import dippy.exception.DippyCommandNotFoundException;
 import dippy.exception.DippyException;
 import dippy.exception.DippyTodoException;
+import dippy.logic.Response;
 import dippy.parser.Parser;
 import dippy.ui.Ui;
 
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private static ArrayList<Task> tasks;
 
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
@@ -22,7 +23,7 @@ public class TaskList {
      * @param userInput Task that the user wants to add to the list, in String format.
      * @throws DippyException If the user input is in an invalid format.
      */
-    public static void addTask(ArrayList<Task> tasks, String userInput) throws DippyException {
+    public static Response addTask(ArrayList<Task> tasks, String userInput) throws DippyException {
         // Declare variables common to every kind of task to be added
         Scanner sc = new Scanner(userInput);
         String command = sc.next();
@@ -117,7 +118,7 @@ public class TaskList {
         }
 
         out += "Now you have " + tasks.size() + " tasks in the list.\n";
-        System.out.println(Ui.wrap(out));
+        return new Response(Ui.wrap(out));
     }
 
     /**
@@ -126,7 +127,7 @@ public class TaskList {
      * @param userInput The task from the list that the user wants to delete,
      *                  in String format
      */
-    public static void deleteTask(ArrayList<Task> tasks, String userInput) {
+    public static Response deleteTask(ArrayList<Task> tasks, String userInput) {
         // Obtain the index from user input
         Scanner sc = new Scanner(userInput);
         sc.next();
@@ -142,7 +143,7 @@ public class TaskList {
         out = Ui.wrap(out);
 
         // Print output message
-        System.out.println(out);
+        return new Response(out);
     }
 
     /**
@@ -151,7 +152,7 @@ public class TaskList {
      * @param userInput The task that the user wants to mark as done,
      *                  in String format.
      */
-    public static void finishTask(ArrayList<Task> tasks, String userInput) {
+    public static Response finishTask(ArrayList<Task> tasks, String userInput) {
         // Initialise the StringBuilder for the print output
         StringBuilder sb = new StringBuilder();
 
@@ -175,7 +176,7 @@ public class TaskList {
         sb.append(tasks.get(index) + "\n");
         String out = "Dippy:\n" + Ui.indent(sb.toString());
         out = Ui.wrap(out);
-        System.out.print(out);
+        return new Response(out);
     }
 
     /**
@@ -183,7 +184,7 @@ public class TaskList {
      * @param tasks The list of tasks that the user wants to display to
      *              standard output.
      */
-    public static void displayList(ArrayList<Task> tasks) {
+    public static Response displayList(ArrayList<Task> tasks) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
             sb.append((i + 1) + ". " + tasks.get(i) + "\n");
@@ -192,10 +193,10 @@ public class TaskList {
         out += Ui.indent(sb.toString());
         out = Ui.indent(out);
         out = "Dippy:\n" + out;
-        System.out.println(Ui.wrap(out));
+        return new Response(Ui.wrap(out));
     }
 
-    public static void findTask(ArrayList<Task> tasks, String userInput) {
+    public static Response findTask(ArrayList<Task> tasks, String userInput) {
         ArrayList<Task> out = new ArrayList<>();
         String keyword = userInput.substring(4).trim();
         for (Task task : tasks) {
@@ -203,6 +204,14 @@ public class TaskList {
                 out.add(task);
             }
         }
-        displayList(out);
+        return displayList(out);
+    }
+
+    public static ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public static void setTasks(ArrayList<Task> tasks) {
+        TaskList.tasks = tasks;
     }
 }

@@ -1,6 +1,14 @@
 package dippy.parser;
 
+import dippy.exception.DippyException;
+import dippy.logic.Response;
+import dippy.task.Task;
+import dippy.task.TaskList;
+import dippy.ui.Ui;
+
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Parser {
     /**
@@ -11,5 +19,23 @@ public class Parser {
      */
     public static LocalDate stringToDate(String date) {
         return LocalDate.parse(date);
+    }
+
+    public static Response parseUserInput(String userInput) throws DippyException {
+        // ChatGPT recommends: use equalsIgnoreCase instead of converting to lower case
+        if (userInput.equalsIgnoreCase("bye")) {
+            return new Response(Ui.sayFarewell(), true);
+        } else if (userInput.equalsIgnoreCase("list")) {
+            return TaskList.displayList(TaskList.getTasks());
+        } else if (userInput.toLowerCase().matches("^mark\\s+\\d+$")) {
+            return TaskList.finishTask(TaskList.getTasks(), userInput);
+        } else if (userInput.toLowerCase().matches("^delete\\s+\\d+$")) {
+            return TaskList.deleteTask(TaskList.getTasks(), userInput);
+        } else if (userInput.toLowerCase().matches("^find\\s+.+$")) {
+            return TaskList.findTask(TaskList.getTasks(), userInput);
+        }
+        else {
+            return TaskList.addTask(TaskList.getTasks(), userInput);
+        }
     }
 }
