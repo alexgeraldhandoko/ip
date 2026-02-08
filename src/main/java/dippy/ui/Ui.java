@@ -79,6 +79,7 @@ public class Ui {
                 userInput = userInput.trim();
 
                 Response response = Parser.parseUserInput(userInput);
+                System.out.println(response.getReply());
                 if (response.getShouldExit()) {
                     break;
                 }
