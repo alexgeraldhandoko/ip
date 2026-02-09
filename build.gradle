@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClass.set("dippy.Main")
+    mainClass.set("dippy.Launcher")
 }
 
 shadowJar {
@@ -53,8 +53,9 @@ shadowJar {
     archiveFileName = "dippy.jar"
 }
 
-run{
+run {
     standardInput = System.in
+    enableAssertions = true
 }
 checkstyle {
     toolVersion = '11.0.0'
