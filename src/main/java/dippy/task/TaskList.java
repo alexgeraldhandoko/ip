@@ -10,6 +10,11 @@ import dippy.ui.Ui;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * TaskList class manages the list of tasks that Dippy keeps
+ * track of for the user and provides interfaces for the user
+ * to run different queries on the task list.
+ */
 public class TaskList {
     private static ArrayList<Task> tasks;
 
@@ -31,11 +36,11 @@ public class TaskList {
 
         // Create task and output message based on the kind of task
         if (command.equalsIgnoreCase("todo")) {
-            addTodoTask(sc, out);
+            out = addTodoTask(sc, out);
         } else if (command.equalsIgnoreCase("deadline")) {
-            addDeadlineTask(sc, out);
+            out = addDeadlineTask(sc, out);
         } else if (command.equalsIgnoreCase("event")) {
-            addEventTask(sc, out);
+            out = addEventTask(sc, out);
         } else {
             throw new DippyCommandNotFoundException();
         }
@@ -51,7 +56,7 @@ public class TaskList {
      * @param out The output message that needs to be updated once the to-do
      *            task is added to the task list
      */
-    public static void addTodoTask(Scanner sc, String out) throws DippyTodoException{
+    public static String addTodoTask(Scanner sc, String out) throws DippyTodoException{
         // Initialise the String that contains the name of the task from the user input
         String taskName = "";
 
@@ -72,6 +77,7 @@ public class TaskList {
         out += newTask.toString() + "\n";
         out = Ui.indent(out);
         out = "Dippy:\n" + out;
+        return out;
     }
 
     /**
@@ -81,7 +87,7 @@ public class TaskList {
      * @param out The output message that needs to be updated once the deadline
      *            task is added to the task list
      */
-    public static void addDeadlineTask(Scanner sc, String out) {
+    public static String addDeadlineTask(Scanner sc, String out) {
         // Initialise the String that contains the name of the task from the user input
         String taskName = "";
 
@@ -110,9 +116,10 @@ public class TaskList {
         out += newTask.toString();
         out = Ui.indent(out);
         out = "Dippy:\n" + out;
+        return out;
     }
 
-    public static void addEventTask(Scanner sc, String out) {
+    public static String addEventTask(Scanner sc, String out) {
         // Initialise the String that contains the name of the task from the user input
         String taskName = "";
 
@@ -152,6 +159,7 @@ public class TaskList {
         out += newTask.toString();
         out = Ui.indent(out);
         out = "Dippy:\n" + out;
+        return out;
     }
 
     /**

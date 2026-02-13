@@ -1,5 +1,8 @@
 package dippy.task;
 
+/**
+ * Event is a Task with a startDate and an endDate
+ */
 public class Event extends Task {
     private String startDate;
     private String endDate;
