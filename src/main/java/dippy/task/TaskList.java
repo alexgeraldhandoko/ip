@@ -28,97 +28,130 @@ public class TaskList {
         Scanner sc = new Scanner(userInput);
         String command = sc.next();
         String out = "Got it. I've added the following item to your list:\n";
-        String taskName = "";
-        Task newTask;
 
         // Create task and output message based on the kind of task
         if (command.equalsIgnoreCase("todo")) {
-            // Check if the task description exists
-            if (!sc.hasNext()) {
-                throw new DippyTodoException();
-            }
-            // Gather the task name
-            while (sc.hasNext()) {
-                taskName += sc.next() + " ";
-            }
-
-            // Create the task with the corresponding name and add to the tasklist
-            newTask = new Task(taskName);
-            tasks.add(newTask);
-
-            // Craft the out message
-            out += newTask.toString() + "\n";
-            out = Ui.indent(out);
-            out = "Dippy:\n" + out;
+            addTodoTask(sc, out);
         } else if (command.equalsIgnoreCase("deadline")) {
-            // Gather the task name until the date description
-            while (sc.hasNext()) {
-                String tmp = sc.next();
-                if (tmp.equalsIgnoreCase("/by")) {
-                    break;
-                }
-                taskName += tmp + " ";
-            }
-            taskName = taskName.trim();
-
-            // Gather the task end date
-            String date = "";
-            while (sc.hasNext()) {
-                date += sc.next() + " ";
-            }
-            date = date.trim();
-
-            // Create the deadline task and add it to the tasklist
-            newTask = new Deadline(taskName, Parser.stringToDate(date));
-            tasks.add(newTask);
-
-            // Craft the out message
-            out += newTask.toString();
-            out = Ui.indent(out);
-            out = "Dippy:\n" + out;
+            addDeadlineTask(sc, out);
         } else if (command.equalsIgnoreCase("event")) {
-            // Gather the task name until the task description
-            while (sc.hasNext()) {
-                String tmp = sc.next();
-                if (tmp.equalsIgnoreCase("/from")) {
-                    break;
-                }
-                taskName += tmp + " ";
-            }
-            taskName = taskName.trim();
-
-            // Gather the start date
-            String startDate = "";
-            while (sc.hasNext()) {
-                String tmp = sc.next();
-                if (tmp.equalsIgnoreCase("/to")) {
-                    break;
-                }
-                startDate += tmp + " ";
-            }
-            startDate = startDate.trim();
-
-            // Gather the end date
-            String endDate = "";
-            while (sc.hasNext()) {
-                endDate += sc.next() + " ";
-            }
-            endDate = endDate.trim();
-
-            // Create the new event task and add it to the task list
-            newTask = new Event(taskName, startDate, endDate);
-            tasks.add(newTask);
-
-            // Craft the out message
-            out += newTask.toString();
-            out = Ui.indent(out);
-            out = "Dippy:\n" + out;
+            addEventTask(sc, out);
         } else {
             throw new DippyCommandNotFoundException();
         }
 
         out += "Now you have " + tasks.size() + " tasks in the list.\n";
         return new Response(Ui.wrap(out));
+    }
+
+    /**
+     * Adds a To-do task to the Task List and updates the output message
+     * of the add to-do task operation accordingly
+     * @param sc The scanner object used to read and parse the user input
+     * @param out The output message that needs to be updated once the to-do
+     *            task is added to the task list
+     */
+    public static void addTodoTask(Scanner sc, String out) throws DippyTodoException{
+        // Initialise the String that contains the name of the task from the user input
+        String taskName = "";
+
+        // Check if the task description exists
+        if (!sc.hasNext()) {
+            throw new DippyTodoException();
+        }
+        // Gather the task name
+        while (sc.hasNext()) {
+            taskName += sc.next() + " ";
+        }
+
+        // Create the task with the corresponding name and add to the tasklist
+        Task newTask = new Task(taskName);
+        tasks.add(newTask);
+
+        // Craft the out message
+        out += newTask.toString() + "\n";
+        out = Ui.indent(out);
+        out = "Dippy:\n" + out;
+    }
+
+    /**
+     * Adds a Deadline task to the Task List and updates the output message
+     * of the add deadline task operation accordingly
+     * @param sc The scanner object used to read and parse the user input
+     * @param out The output message that needs to be updated once the deadline
+     *            task is added to the task list
+     */
+    public static void addDeadlineTask(Scanner sc, String out) {
+        // Initialise the String that contains the name of the task from the user input
+        String taskName = "";
+
+        // Gather the task name until the date description
+        while (sc.hasNext()) {
+            String tmp = sc.next();
+            if (tmp.equalsIgnoreCase("/by")) {
+                break;
+            }
+            taskName += tmp + " ";
+        }
+        taskName = taskName.trim();
+
+        // Gather the task end date
+        String date = "";
+        while (sc.hasNext()) {
+            date += sc.next() + " ";
+        }
+        date = date.trim();
+
+        // Create the deadline task and add it to the tasklist
+        Task newTask = new Deadline(taskName, Parser.stringToDate(date));
+        tasks.add(newTask);
+
+        // Craft the out message
+        out += newTask.toString();
+        out = Ui.indent(out);
+        out = "Dippy:\n" + out;
+    }
+
+    public static void addEventTask(Scanner sc, String out) {
+        // Initialise the String that contains the name of the task from the user input
+        String taskName = "";
+
+        // Gather the task name until the task description
+        while (sc.hasNext()) {
+            String tmp = sc.next();
+            if (tmp.equalsIgnoreCase("/from")) {
+                break;
+            }
+            taskName += tmp + " ";
+        }
+        taskName = taskName.trim();
+
+        // Gather the start date
+        String startDate = "";
+        while (sc.hasNext()) {
+            String tmp = sc.next();
+            if (tmp.equalsIgnoreCase("/to")) {
+                break;
+            }
+            startDate += tmp + " ";
+        }
+        startDate = startDate.trim();
+
+        // Gather the end date
+        String endDate = "";
+        while (sc.hasNext()) {
+            endDate += sc.next() + " ";
+        }
+        endDate = endDate.trim();
+
+        // Create the new event task and add it to the task list
+        Task newTask = new Event(taskName, startDate, endDate);
+        tasks.add(newTask);
+
+        // Craft the out message
+        out += newTask.toString();
+        out = Ui.indent(out);
+        out = "Dippy:\n" + out;
     }
 
     /**
