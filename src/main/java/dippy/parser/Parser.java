@@ -16,6 +16,12 @@ import java.util.ArrayList;
  * required by the Dippy application.
  */
 public class Parser {
+    private static String byeCommandRegex = "bye";
+    private static String listCommandRegex = "list";
+    private static String markCommandRegex = "^mark\\s+\\d+$";
+    private static String deleteCommandRegex = "^delete\\s+\\d+$";
+    private static String findCommandRegex = "^find\\s+.+$";
+
     /**
      * Parses the date from a String format and returns the
      * corresponding LocalDate object.
@@ -28,15 +34,15 @@ public class Parser {
 
     public static Response parseUserInput(String userInput) throws DippyException {
         // ChatGPT recommends: use equalsIgnoreCase instead of converting to lower case
-        if (userInput.equalsIgnoreCase("bye")) {
+        if (userInput.equalsIgnoreCase(byeCommandRegex)) {
             return new Response(Ui.sayFarewell(), true);
-        } else if (userInput.equalsIgnoreCase("list")) {
+        } else if (userInput.equalsIgnoreCase(listCommandRegex)) {
             return TaskList.displayList(TaskList.getTasks());
-        } else if (userInput.toLowerCase().matches("^mark\\s+\\d+$")) {
+        } else if (userInput.toLowerCase().matches(markCommandRegex)) {
             return TaskList.finishTask(TaskList.getTasks(), userInput);
-        } else if (userInput.toLowerCase().matches("^delete\\s+\\d+$")) {
+        } else if (userInput.toLowerCase().matches(deleteCommandRegex)) {
             return TaskList.deleteTask(TaskList.getTasks(), userInput);
-        } else if (userInput.toLowerCase().matches("^find\\s+.+$")) {
+        } else if (userInput.toLowerCase().matches(findCommandRegex)) {
             return TaskList.findTask(TaskList.getTasks(), userInput);
         }
         else {
