@@ -42,6 +42,7 @@ public class Event extends Task {
      * @return The Event task object that was represented by the user input
      */
     public static Event parseToTask(String[] fields) {
+        assert(fields.length >= 6);
         boolean isTaskDone = fields[1].equals("1") ? true : false;
         String taskName = fields[2];
         String startDate = fields[3];

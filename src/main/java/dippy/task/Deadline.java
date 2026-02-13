@@ -28,6 +28,7 @@ public class Deadline extends Task {
      * @return The Deadline task object that was represented by the user input
      */
     public static Deadline parseToTask(String[] fields) {
+        assert(fields.length >= 4);
         String taskName = fields[2];
         String deadlineDate = fields[3];
         Deadline newTask = new Deadline(taskName, Parser.stringToDate(deadlineDate));

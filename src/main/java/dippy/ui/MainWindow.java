@@ -63,8 +63,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void handleUserInput() throws DippyException {
         DialogBox userText = DialogBox.getUserDialog(userInput.getText(), userImage);
-
         Response dippyResponse = Parser.parseUserInput(userInput.getText());
+
+        // Invalid user input shouldn't reach this line (DippyException should be thrown)
+        // Check if Response object obtained after parsing valid user input
+        assert(dippyResponse != null);
+
         DialogBox dippyText = DialogBox.getDippyDialog(dippyResponse.getReply(), dippyImage);
         dialogContainer.getChildren().addAll(userText, dippyText);
 
