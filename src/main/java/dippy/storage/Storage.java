@@ -4,21 +4,23 @@ import dippy.task.Deadline;
 import dippy.task.Event;
 import dippy.task.Task;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Class to handle storage-related logic, mainly saving to and loading from disk memory
+ */
 public class Storage {
     /**
      * Loads a stored list of tasks from disk and returns it as an array of
      * tasks to the caller.
      */
+    public static final String STORAGE_FILE_PATH = System.getProperty("user.home") + "/.dippy/dippy.txt";
+
     public static ArrayList<Task> load() {
+        createStorageDir();
         try {
-            BufferedReader br = new BufferedReader(new FileReader(
-                "data/dippy.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(STORAGE_FILE_PATH));
             String line = br.readLine();
             ArrayList<Task> loadedTasks = new ArrayList<>();
             // Expected line format:
@@ -51,16 +53,25 @@ public class Storage {
      *              to the disk.
      */
     public static void save(ArrayList<Task> tasks) {
+        createStorageDir();
         StringBuilder sb = new StringBuilder();
         try {
             for (Task task : tasks) {
                 sb.append(task.saveFormat() + "\n");
             }
-            FileWriter fw = new FileWriter("data/dippy.txt");
+            FileWriter fw = new FileWriter(STORAGE_FILE_PATH);
             fw.write(sb.toString());
             fw.flush();
         } catch (IOException e) {
             System.out.println("Failed to save tasks to disk: " + e.getMessage());
         }
+    }
+
+    /**
+     * Creates the directory in which to store the data if it doesn't exist
+     */
+    public static void createStorageDir() {
+        File file = new File(STORAGE_FILE_PATH).getParentFile();
+        file.mkdirs();
     }
 }
