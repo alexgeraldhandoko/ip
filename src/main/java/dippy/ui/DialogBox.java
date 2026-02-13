@@ -25,10 +25,13 @@ public class DialogBox extends HBox {
 
     public DialogBox(String text, Image i) {
         try {
+            // Load the fxml file into the current controller
             FXMLLoader fxmlLoader = new FXMLLoader(DialogBox.class.getResource(
                 "/view/DialogBox.fxml"));
+
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
+
             fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();

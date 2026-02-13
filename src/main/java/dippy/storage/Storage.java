@@ -29,16 +29,23 @@ public class Storage {
     public static ArrayList<Task> load() {
         createStorageDir();
         try {
+            // Read the first line from tasks file in memory
             BufferedReader br = new BufferedReader(new FileReader(STORAGE_FILE_PATH));
             String line = br.readLine();
+
+            // Prepare the array of tasks to store the tasks loaded from memory
             ArrayList<Task> loadedTasks = new ArrayList<>();
+
             // Expected line format:
             // dippy.task.Task Type | done/not done | dippy.task.Task Name | dippy.task.Task Date
-            // T/D/E | %d |
+
+            // Read all lines in the entire tasks file
             while (line != null) {
                 String[] tokens = line.split(STORED_TASK_TOKEN_SEPARATOR);
                 char taskType = tokens[0].toCharArray()[0];
                 Task newTask;
+
+                // Parse the line according to the type of task it represents
                 if (taskType == STORED_TASK_DEADLINE_SYMBOL) {
                     newTask = Deadline.parseToTask(tokens);
                 } else if (taskType == STORED_TASK_EVENT_SYMBOL) {
@@ -46,12 +53,17 @@ public class Storage {
                 } else {
                     newTask = Task.parseToTask(tokens);
                 }
+
+                // Add the parsed task to the array of tasks that are loaded from memory
                 loadedTasks.add(newTask);
+
                 line = br.readLine();
             }
             return loadedTasks;
         } catch (IOException e) {
             System.out.println(LOAD_FAIL_OPENING_MESSAGE + e.getMessage());
+
+            // Return an empty task list if fail to read tasks from memory
             return new ArrayList<>();
         }
     }
@@ -62,12 +74,18 @@ public class Storage {
      *              to the disk.
      */
     public static void save(ArrayList<Task> tasks) {
+        // Creates the directory to store the save file if directory hasn't existed yet
         createStorageDir();
+
         StringBuilder sb = new StringBuilder();
+
         try {
+            // Turn each task in the task list into its save format
             for (Task task : tasks) {
                 sb.append(task.saveFormat() + "\n");
             }
+
+            // Write all the tasks in its save format to the save file
             FileWriter fw = new FileWriter(STORAGE_FILE_PATH);
             fw.write(sb.toString());
             fw.flush();
