@@ -19,6 +19,11 @@ public class Parser {
     private static String deleteCommandRegex = "^delete\\s+\\d+$";
     private static String findCommandRegex = "^find\\s+.+$";
 
+    // Special boolean value since add command can be of various types (deadline, event, to-do)
+    // and can be expanded to many more commands in the future, so checking them by regex one
+    // by one is not the goal in this method. It will be handled by the TaskList class.
+    private static boolean addTaskCommand = true;
+
     /**
      * Parses the date from a String format and returns the
      * corresponding LocalDate object.
@@ -41,9 +46,10 @@ public class Parser {
             return TaskList.deleteTask(TaskList.getTasks(), userInput);
         } else if (userInput.toLowerCase().matches(findCommandRegex)) {
             return TaskList.findTask(TaskList.getTasks(), userInput);
-        }
-        else {
+        } else if (addTaskCommand) {
             return TaskList.addTask(TaskList.getTasks(), userInput);
+        } else {
+            throw new DippyException("User did not provide a valid input format");
         }
     }
 }
