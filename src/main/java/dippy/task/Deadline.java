@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * Deadline is a Task that has a due date displayed in a MMM-DD-YYYY format
+ */
 public class Deadline extends Task {
     private LocalDate date;
 
@@ -26,7 +29,6 @@ public class Deadline extends Task {
      */
     public static Deadline parseToTask(String[] fields) {
         assert(fields.length >= 4);
-        boolean isTaskDone = fields[1].equals("1") ? true : false;
         String taskName = fields[2];
         String deadlineDate = fields[3];
         Deadline newTask = new Deadline(taskName, Parser.stringToDate(deadlineDate));

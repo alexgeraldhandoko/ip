@@ -1,6 +1,5 @@
 package dippy.ui;
 
-import dippy.logic.Response;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 
 /**
@@ -27,10 +25,13 @@ public class DialogBox extends HBox {
 
     public DialogBox(String text, Image i) {
         try {
+            // Load the fxml file into the current controller
             FXMLLoader fxmlLoader = new FXMLLoader(DialogBox.class.getResource(
                 "/view/DialogBox.fxml"));
+
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
+
             fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();

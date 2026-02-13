@@ -1,5 +1,10 @@
 package dippy.task;
 
+/**
+ * Task is the most basic form of a Task with only essential
+ * information such as the name of the task and the completion
+ * status of the task.
+ */
 public class Task {
     private boolean isDone;
     private String name;

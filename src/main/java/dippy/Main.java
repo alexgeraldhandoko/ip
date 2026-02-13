@@ -3,7 +3,6 @@ package dippy;
 import dippy.storage.Storage;
 import dippy.task.Task;
 import dippy.task.TaskList;
-import dippy.ui.MainWindow;
 import dippy.ui.Ui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -54,9 +53,14 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         try {
+            // Load the fxml into the current controller
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
+
+            // Set up the scene
             AnchorPane ap = fxmlLoader.load();
             scene = new Scene(ap);
+
+            // Set up and show the stage
             stage.setScene(scene);
             stage.show();
         } catch (IOException e) {

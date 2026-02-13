@@ -4,13 +4,17 @@ import dippy.exception.DippyException;
 import dippy.logic.Response;
 import dippy.parser.Parser;
 import dippy.task.Task;
-import dippy.task.TaskList;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+/**
+ * Ui is the Class responsible for managing standard
+ * output messages, and also standard formatting operations
+ * for output messages.
+ */
 public class Ui {
     private static final String HORIZONTAL_LINE = "________________________________________"
         + "______________________________\n";
