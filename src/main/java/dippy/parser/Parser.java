@@ -10,6 +10,11 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+/**
+ * Class that is responsible for methods that parse user input
+ * and transforms data from one format into another format
+ * required by the Dippy application.
+ */
 public class Parser {
     /**
      * Parses the date from a String format and returns the
