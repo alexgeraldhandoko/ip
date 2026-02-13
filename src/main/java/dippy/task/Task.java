@@ -47,6 +47,7 @@ public class Task {
      * @return The Task object that was represented by the user input
      */
     public static Task parseToTask(String[] fields) {
+        assert(fields.length >= 2);
         boolean isTaskDone = fields[1].equals("1") ? true : false;
         String taskName = fields[2];
         Task newTask = new Task(taskName);
