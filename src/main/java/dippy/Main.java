@@ -3,7 +3,6 @@ package dippy;
 import dippy.storage.Storage;
 import dippy.task.Task;
 import dippy.task.TaskList;
-import dippy.ui.MainWindow;
 import dippy.ui.Ui;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

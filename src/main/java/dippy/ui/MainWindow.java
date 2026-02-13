@@ -7,7 +7,6 @@ import dippy.storage.Storage;
 import dippy.task.Task;
 import dippy.task.TaskList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;

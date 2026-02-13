@@ -4,7 +4,6 @@ import dippy.exception.DippyException;
 import dippy.logic.Response;
 import dippy.parser.Parser;
 import dippy.task.Task;
-import dippy.task.TaskList;
 
 import java.io.BufferedReader;
 import java.io.IOException;
