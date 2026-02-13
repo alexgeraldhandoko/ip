@@ -11,12 +11,17 @@ import java.util.ArrayList;
  * Class to handle storage-related logic, mainly saving to and loading from disk memory
  */
 public class Storage {
+    public static final String STORAGE_FILE_PATH = System.getProperty("user.home") + "/.dippy/dippy.txt";
+    public static final String STORED_TASK_TOKEN_SEPARATOR = " \\| ";
+    public static final char STORED_TASK_DEADLINE_SYMBOL = 'D';
+    public static final char STORED_TASK_EVENT_SYMBOL = 'E';
+    public static final String LOAD_FAIL_OPENING_MESSAGE = "Failed to load tasks to disk";
+    public static final String SAVE_FAIL_OPENING_MESSAGE = "Failed to save tasks from file ";
+
     /**
      * Loads a stored list of tasks from disk and returns it as an array of
      * tasks to the caller.
      */
-    public static final String STORAGE_FILE_PATH = System.getProperty("user.home") + "/.dippy/dippy.txt";
-
     public static ArrayList<Task> load() {
         createStorageDir();
         try {
@@ -27,12 +32,12 @@ public class Storage {
             // dippy.task.Task Type | done/not done | dippy.task.Task Name | dippy.task.Task Date
             // T/D/E | %d |
             while (line != null) {
-                String[] tokens = line.split(" \\| ");
+                String[] tokens = line.split(STORED_TASK_TOKEN_SEPARATOR);
                 char taskType = tokens[0].toCharArray()[0];
                 Task newTask;
-                if (taskType == 'D') {
+                if (taskType == STORED_TASK_DEADLINE_SYMBOL) {
                     newTask = Deadline.parseToTask(tokens);
-                } else if (taskType == 'E') {
+                } else if (taskType == STORED_TASK_EVENT_SYMBOL) {
                     newTask = Event.parseToTask(tokens);
                 } else {
                     newTask = Task.parseToTask(tokens);
@@ -42,7 +47,7 @@ public class Storage {
             }
             return loadedTasks;
         } catch (IOException e) {
-            System.out.println("Failed to load tasks from file " + e.getMessage());
+            System.out.println(LOAD_FAIL_OPENING_MESSAGE + e.getMessage());
             return new ArrayList<>();
         }
     }
@@ -63,7 +68,7 @@ public class Storage {
             fw.write(sb.toString());
             fw.flush();
         } catch (IOException e) {
-            System.out.println("Failed to save tasks to disk: " + e.getMessage());
+            System.out.println(SAVE_FAIL_OPENING_MESSAGE + e.getMessage());
         }
     }
 
