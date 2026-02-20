@@ -19,6 +19,7 @@ public class Parser {
     private static String markCommandRegex = "^mark\\s+\\d+$";
     private static String deleteCommandRegex = "^delete\\s+\\d+$";
     private static String findCommandRegex = "^find\\s+.+$";
+    private static String sortCommandRegex = "sort";
     private static String helpCommandRegex = "help";
 
     // Special boolean value since add command can be of various types (deadline, event, to-do)
@@ -50,6 +51,8 @@ public class Parser {
             return TaskList.findTask(TaskList.getTasks(), userInput);
         } else if (userInput.toLowerCase().matches(helpCommandRegex)) {
             return new Response(Ui.printInstructionsGui(), false);
+        } else if (userInput.toLowerCase().matches(sortCommandRegex)) {
+            return TaskList.sortTask(TaskList.getTasks(), userInput);
         } else if (addTaskCommand) {
             return TaskList.addTask(TaskList.getTasks(), userInput);
         } else {

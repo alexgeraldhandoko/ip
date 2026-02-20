@@ -1,6 +1,5 @@
 package dippy.ui;
 
-import dippy.exception.DippyCommandNotFoundException;
 import dippy.exception.DippyException;
 import dippy.logic.Response;
 import dippy.parser.Parser;
