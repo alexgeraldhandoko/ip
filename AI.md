@@ -41,3 +41,40 @@ How to create a copy of a Java Collection
 
 How to compare two strings lexicographically while ignoring the cases in the string?
 - ChatGPT recommends to use the compareToIgnoreCase method for strings
+
+A-BetterGUI
+- I want a background to the chat so that it looks less empty
+  ChatGPT offered me two ways to do this:
+  1) Do it directly in the FXML
+  2) Attach a CSS file to the FXML
+  I'm going with option 2) because it looks cleaner when the styling and the fxml elements
+  are separated into two different files
+- The CSS is not being applied?
+  ChatGPT says that in JavaFX, the CSS file can be applied to the scene at
+  the start function of the Main application.
+  scene.getStylesheets().add(...) expects a URL String, not a URL object, so we
+  need to apply the .toExternalForm method to the URL object to turn it into a
+  String.
+- The ScrollPane is apparently opaque by default, so its opacity has to be
+  reduced as well to increase the visibility of the AnchorPane background.
+- In JavaFX, many controls automatically come with a default CSS style class,
+  including scroll pane. Its class is scroll-pane
+- Claude told me that in CSS, the space between selectors matters a lot:
+  - .scroll-pane.content means a single element that has both the scroll-pane
+    class and the content class.
+  - .scroll-pane .content means an element with class content that is insid
+    another element with class scroll-pane. 
+- In JavaFX, scroll pane itself has a lot of background layers. It has an outer
+  control, then a viewport on top of it, then its children content on top of the
+  viewport. The viewport and the outer control need to be transparent backgrounds
+  for the background of the anchor pane to be visible.
+- I asked ChatGPT about appropriate colour scheme for the dialog box to match
+  the background image so that they contrast well and improve readability.
+- There were some issues with adding styling to each dialog box to create the 
+  text bubble effect. Apparently the css couldn't identify the fxml element to be
+  styled. ChatGPT recommends that I declare a class for the dialog box that I
+  could directly refer to in the css.
+- ChatGPT says that VBox can be styled to vertically separate its contents
+- What is the difference between spacing and padding?
+  Spacing is the space between children, while padding is the space between the
+  outer edge of the container and its contents

@@ -7,10 +7,12 @@ import dippy.storage.Storage;
 import dippy.task.Task;
 import dippy.task.TaskList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -38,6 +40,7 @@ public class MainWindow extends AnchorPane {
     public void initialize() {
         // Display greeting message
         DialogBox greetingText = DialogBox.getDippyDialog(Ui.greetGui(), dippyImage);
+        dialogContainer.prefWidthProperty().bind(scrollPane.widthProperty().subtract(30));
         dialogContainer.getChildren().addAll(greetingText);
 
         // Load the tasks into the GUI logic
@@ -75,9 +78,35 @@ public class MainWindow extends AnchorPane {
         assert(dippyResponse != null);
 
         DialogBox dippyText = DialogBox.getDippyDialog(dippyResponse.getReply(), dippyImage);
-        dialogContainer.getChildren().addAll(userText, dippyText);
+        dialogContainer.getChildren().addAll(
+            wrapRight(userText), wrapLeft(dippyText));
 
         userInput.clear();
         Storage.save(TaskList.getTasks());
+    }
+
+    private HBox wrapRight(DialogBox db) {
+        HBox wrapper = new HBox(db);
+        wrapper.setAlignment(Pos.TOP_RIGHT);
+        bindWrapperWidth(wrapper);
+        bindDialogBoxWidth(db, wrapper);
+        return wrapper;
+    }
+
+    private HBox wrapLeft(DialogBox db) {
+        HBox wrapper = new HBox(db);
+        wrapper.setAlignment(Pos.TOP_LEFT);
+        bindWrapperWidth(wrapper);
+        return wrapper;
+    }
+
+    private void bindWrapperWidth(HBox wrapper) {
+        wrapper.prefWidthProperty().bind(scrollPane.widthProperty().subtract(20));
+        wrapper.maxWidthProperty().bind(scrollPane.widthProperty().subtract(20));
+    }
+
+    private void bindDialogBoxWidth(DialogBox db, HBox parentWrapper) {
+        db.prefWidthProperty().bind(parentWrapper.widthProperty().subtract(20));
+        db.maxWidthProperty().bind(parentWrapper.widthProperty().subtract(20));
     }
 }
