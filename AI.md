@@ -68,3 +68,13 @@ A-BetterGUI
   control, then a viewport on top of it, then its children content on top of the
   viewport. The viewport and the outer control need to be transparent backgrounds
   for the background of the anchor pane to be visible.
+- I asked ChatGPT about appropriate colour scheme for the dialog box to match
+  the background image so that they contrast well and improve readability.
+- There were some issues with adding styling to each dialog box to create the 
+  text bubble effect. Apparently the css couldn't identify the fxml element to be
+  styled. ChatGPT recommends that I declare a class for the dialog box that I
+  could directly refer to in the css.
+- ChatGPT says that VBox can be styled to vertically separate its contents
+- What is the difference between spacing and padding?
+  Spacing is the space between children, while padding is the space between the
+  outer edge of the container and its contents
