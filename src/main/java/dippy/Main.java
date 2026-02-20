@@ -58,6 +58,8 @@ public class Main extends Application {
             // Set up the scene
             AnchorPane ap = fxmlLoader.load();
             scene = new Scene(ap);
+            scene.getStylesheets().add(
+                Main.class.getResource("/view/style.css").toExternalForm());
 
             // Set up and show the stage
             stage.setScene(scene);

@@ -1,0 +1,7 @@
+#rootPane {
+     -fx-background-image: url("../images/background.png");
+ }
+
+ .scroll-pane, .scroll-pane > .content, .scroll-pane > .viewport {
+     -fx-background-color: transparent;
+ }
