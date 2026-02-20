@@ -1,5 +1,6 @@
 package dippy.parser;
 
+import dippy.exception.DippyCommandNotFoundException;
 import dippy.exception.DippyException;
 import dippy.logic.Response;
 import dippy.task.TaskList;
@@ -18,6 +19,7 @@ public class Parser {
     private static String markCommandRegex = "^mark\\s+\\d+$";
     private static String deleteCommandRegex = "^delete\\s+\\d+$";
     private static String findCommandRegex = "^find\\s+.+$";
+    private static String helpCommandRegex = "help";
 
     // Special boolean value since add command can be of various types (deadline, event, to-do)
     // and can be expanded to many more commands in the future, so checking them by regex one
@@ -46,10 +48,12 @@ public class Parser {
             return TaskList.deleteTask(TaskList.getTasks(), userInput);
         } else if (userInput.toLowerCase().matches(findCommandRegex)) {
             return TaskList.findTask(TaskList.getTasks(), userInput);
+        } else if (userInput.toLowerCase().matches(helpCommandRegex)) {
+            return new Response(Ui.printInstructionsGui(), false);
         } else if (addTaskCommand) {
             return TaskList.addTask(TaskList.getTasks(), userInput);
         } else {
-            throw new DippyException("User did not provide a valid input format");
+            throw new DippyCommandNotFoundException();
         }
     }
 }

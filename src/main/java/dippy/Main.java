@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -26,8 +25,8 @@ public class Main extends Application {
      * @param args Optional variadic command line arguments.
      */
     public static void main(String[] args) {
-        Ui.greet();
-        Ui.printInstructions();
+        Ui.greetCli();
+        Ui.printInstructionsCli();
         execute();
         Ui.sayFarewell();
     }

@@ -1,5 +1,6 @@
 package dippy.ui;
 
+import dippy.exception.DippyCommandNotFoundException;
 import dippy.exception.DippyException;
 import dippy.logic.Response;
 import dippy.parser.Parser;
@@ -37,7 +38,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         // Display greeting message
-        DialogBox greetingText = DialogBox.getDippyDialog(Ui.greet(), dippyImage);
+        DialogBox greetingText = DialogBox.getDippyDialog(Ui.greetGui(), dippyImage);
         dialogContainer.getChildren().addAll(greetingText);
 
         // Load the tasks into the GUI logic
@@ -63,7 +64,12 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void handleUserInput() throws DippyException {
         DialogBox userText = DialogBox.getUserDialog(userInput.getText(), userImage);
-        Response dippyResponse = Parser.parseUserInput(userInput.getText());
+        Response dippyResponse;
+        try {
+            dippyResponse = Parser.parseUserInput(userInput.getText());
+        } catch (DippyException e) {
+            dippyResponse = new Response(e.getMessage(), false);
+        }
 
         // Invalid user input shouldn't reach this line (DippyException should be thrown)
         // Check if Response object obtained after parsing valid user input
