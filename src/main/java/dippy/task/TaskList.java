@@ -8,6 +8,7 @@ import dippy.parser.Parser;
 import dippy.ui.Ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /**
@@ -245,6 +246,13 @@ public class TaskList {
                 out.add(task);
             }
         }
+        return displayList(out);
+    }
+
+    public static Response sortTask(ArrayList<Task> tasks, String userInput) {
+        ArrayList<Task> out = new ArrayList<>(tasks);
+        Collections.sort(out, (taskA, taskB)
+            -> taskA.getName().compareToIgnoreCase(taskB.getName()));
         return displayList(out);
     }
 

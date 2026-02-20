@@ -100,9 +100,14 @@ public class Ui {
         return wrap(instructions.toString());
     }
 
+    /**
+     * Prints the usage instructions for Dippy to the user, formatted for the GUI
+     * @return
+     */
     public static String printInstructionsGui() {
         StringBuilder instructions = new StringBuilder();
 
+        // ChatGPT recommends that .stripIndent() is used to get rid of the indents caused due to formatting
         // Craft the instructions
         String instruction1 = """
                 Below are the commands that you can do:
@@ -132,6 +137,9 @@ public class Ui {
                 * "find [keyword]": Shows all the tasks that contains this keyword
             """.stripIndent();
         String instruction9 = """
+                * "sort": Sorts the tasks in alphabetical order, ignoring case
+            """.stripIndent();
+        String instruction10 = """
             * "bye": To close this programme, you need to send me a whole message
                containing only "bye"
             """.stripIndent();
@@ -146,6 +154,7 @@ public class Ui {
         instructions.append(instruction7);
         instructions.append(instruction8);
         instructions.append(instruction9);
+        instructions.append(instruction10);
 
         // Print all instructions
         return wrap(instructions.toString());
