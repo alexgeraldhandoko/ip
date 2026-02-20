@@ -29,7 +29,8 @@
                             prefWidth="388.0"/>
                 </content>
             </ScrollPane>
-            <HBox maxWidth="Infinity">
+            <HBox id="bottom-hbox"
+                  maxWidth="Infinity">
                 <TextField fx:id="userInput"
                            onAction="#handleUserInput"
                            prefHeight="41.0"
