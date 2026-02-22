@@ -30,7 +30,7 @@ The task will also be displayed in the task list with a simple task icon
 
 ## Add Deadline Task
 
-Adds a task that has a name and a deadline
+Adds a task that has a name and a deadline to the task list
 
 Example: todo [task description] /by [YYYY-MM-DD]
 
