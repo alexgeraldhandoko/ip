@@ -10,6 +10,7 @@
     <children>
         <ImageView fx:id='taskType'/>
         <ImageView fx:id='finishedTick'/>
-        <Label fx:id='taskDescription'/>
+        <Label fx:id='taskDescription'
+                wrapText="true"/>
     </children>
 </fx:root>
