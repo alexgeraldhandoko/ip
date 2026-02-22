@@ -17,7 +17,7 @@ Dippy will display the list of tasks
 
 ## Add Simple Task
 
-Adds a task that only has a name
+Adds a task that only has a name to the task list
 
 Example: todo [task description]
 
