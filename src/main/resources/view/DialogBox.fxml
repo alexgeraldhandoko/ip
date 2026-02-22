@@ -5,8 +5,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.VBox?>
 <fx:root styleClass="dialog-box"
-        type="javafx.scene.layout.HBox"
+         type="javafx.scene.layout.HBox"
          alignment="TOP_RIGHT"
          maxHeight="1.7976931348623157E308"
          maxWidth="1.7976931348623157E308"
@@ -15,6 +16,7 @@
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Label fx:id="userName" text="Label" wrapText="true" minHeight="-Infinity"/>
+        <VBox fx:id="taskList"/>
         <ImageView fx:id="profileImage" fitHeight="99.0" fitWidth="99.0"
                     pickOnBounds="true" preserveRatio="true"/>
     </children>

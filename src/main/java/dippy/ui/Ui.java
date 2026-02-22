@@ -4,6 +4,7 @@ import dippy.exception.DippyException;
 import dippy.logic.Response;
 import dippy.parser.Parser;
 import dippy.task.Task;
+import javafx.scene.layout.HBox;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -202,6 +203,19 @@ public class Ui {
             line = BR.readLine();
         }
         return sb.toString();
+    }
+
+    /**
+     * Convert the given list of tasks into their corresponding list of task hBoxes
+     * @param tasks The list of tasks that want to be converted to list of task HBoxes
+     * @return The list of task HBoxes
+     */
+    public static ArrayList<HBox> convertTaskListToHBoxList(ArrayList<Task> tasks) {
+        ArrayList<HBox> hBoxList = new ArrayList<>();
+        for (int i = 0; i < tasks.size(); i++) {
+            hBoxList.add(new TaskHBox(tasks.get(i), i + 1));
+        }
+        return hBoxList;
     }
 
     /**
