@@ -1,5 +1,7 @@
 package dippy.ui;
 
+import dippy.logic.Response;
+import dippy.logic.ResponseType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,10 +13,14 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
+
+import static java.awt.SystemColor.text;
 
 /**
  * Controller for DialogBox component
@@ -24,6 +30,8 @@ public class DialogBox extends HBox {
     private Label userName;
     @FXML
     private ImageView profileImage;
+    @FXML
+    private VBox taskList;
 
     private int fitLength = 99;
 
@@ -77,13 +85,40 @@ public class DialogBox extends HBox {
         profileImage.setClip(clip);
     }
 
-    public static DialogBox getUserDialog(String text, Image i) {
-        return new DialogBox(text, i);
+    public static DialogBox getUserDialog(String responseMessage, Image i) {
+        DialogBox outputDialogBox = new DialogBox(responseMessage, i);
+        outputDialogBox.hideTaskList();
+        return outputDialogBox;
     }
 
-    public static DialogBox getDippyDialog(String text, Image i) {
-        DialogBox outputDialogBox = new DialogBox(text, i);
+    public static DialogBox getDippyDialog(Response response, Image i) {
+        if (response.getResponseType() == ResponseType.TASK_RESPONSE) {
+            return getTaskDippyDialog(response, i);
+        }
+        DialogBox outputDialogBox = new DialogBox(response.getReply(), i);
         outputDialogBox.flip();
+        outputDialogBox.hideTaskList();
         return outputDialogBox;
+    }
+
+    public static DialogBox getTaskDippyDialog(Response response, Image i) {
+        DialogBox displayedDialog = new DialogBox(response.getReply(), i);
+        ArrayList<HBox> taskHBoxes = Ui.convertTaskListToHBoxList(response.getResponseTaskList());
+        displayedDialog.taskList.getChildren().addAll(taskHBoxes);
+        displayedDialog.flip();
+        displayedDialog.hideUserName();
+        return displayedDialog;
+    }
+
+    public void hideTaskList() {
+        taskList.setVisible(false);
+        taskList.setManaged(false);
+        taskList.getChildren().clear();
+    }
+
+    public void hideUserName() {
+        userName.setVisible(false);
+        userName.setManaged(false);
+        userName.setText("");
     }
 }

@@ -4,6 +4,7 @@ import dippy.exception.DippyCommandNotFoundException;
 import dippy.exception.DippyException;
 import dippy.exception.DippyTodoException;
 import dippy.logic.Response;
+import dippy.logic.ResponseType;
 import dippy.parser.Parser;
 import dippy.ui.Ui;
 
@@ -227,15 +228,7 @@ public class TaskList {
      *              standard output.
      */
     public static Response displayList(ArrayList<Task> tasks) {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < tasks.size(); i++) {
-            sb.append((i + 1) + ". " + tasks.get(i) + "\n");
-        }
-        String out = "Here are the tasks in your list:\n";
-        out += Ui.indent(sb.toString());
-        out = Ui.indent(out);
-        out = "Dippy:\n" + out;
-        return new Response(Ui.wrap(out));
+        return new Response("", ResponseType.TASK_RESPONSE, tasks, false);
     }
 
     public static Response findTask(ArrayList<Task> tasks, String userInput) {

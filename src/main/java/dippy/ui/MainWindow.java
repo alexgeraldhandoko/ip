@@ -39,7 +39,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         // Display greeting message
-        DialogBox greetingText = DialogBox.getDippyDialog(Ui.greetGui(), dippyImage);
+        DialogBox greetingText = DialogBox.getDippyDialog(new Response(Ui.greetGui()), dippyImage);
         dialogContainer.prefWidthProperty().bind(scrollPane.widthProperty().subtract(30));
         dialogContainer.getChildren().addAll(greetingText);
 
@@ -53,7 +53,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void printDippyDialogBox(String text) {
-        DialogBox dialogBox = DialogBox.getDippyDialog(text, dippyImage);
+        DialogBox dialogBox = DialogBox.getDippyDialog(new Response(text), dippyImage);
         dialogContainer.getChildren().addAll(dialogBox);
     }
 
@@ -65,7 +65,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void handleUserInput() throws DippyException {
-        DialogBox userText = DialogBox.getUserDialog(userInput.getText(), userImage);
+        DialogBox userText = DialogBox.getUserDialog(userInput.getText().trim(), userImage);
         Response dippyResponse;
         try {
             dippyResponse = Parser.parseUserInput(userInput.getText());
@@ -77,7 +77,7 @@ public class MainWindow extends AnchorPane {
         // Check if Response object obtained after parsing valid user input
         assert(dippyResponse != null);
 
-        DialogBox dippyText = DialogBox.getDippyDialog(dippyResponse.getReply(), dippyImage);
+        DialogBox dippyText = DialogBox.getDippyDialog(dippyResponse, dippyImage);
         dialogContainer.getChildren().addAll(
             wrapRight(userText), wrapLeft(dippyText));
 

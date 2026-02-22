@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+
+<fx:root type='javafx.scene.layout.HBox'
+         xmlns='http://javafx.com/javafx/17'
+         xmlns:fx='http://javafx.com/fxml/1'
+         styleClass="task-hbox">
+    <children>
+        <ImageView fx:id='taskType'/>
+        <ImageView fx:id='finishedTick'/>
+        <Label fx:id='taskDescription'/>
+    </children>
+</fx:root>
