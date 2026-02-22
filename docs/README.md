@@ -45,7 +45,7 @@ The task will also be displayed in the task list with a deadline icon
 
 ## Add Event Task 
 
-Adds a task that has a name, start time, and end time
+Adds a task that has a name, start time, and end time to the task list
 
 Example: event [event name] /from [start time] /to [end time]
 
