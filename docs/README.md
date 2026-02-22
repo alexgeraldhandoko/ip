@@ -95,7 +95,8 @@ Dippy will display the tasks that contain the specified keyword
 
 ## Sort tasks
 
-Sorts the tasks in alphabetical order to make task searching easier
+Sorts the tasks in the task list in alphabetical order to make task 
+searching easier
 
 Example: sort
 
