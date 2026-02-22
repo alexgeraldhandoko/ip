@@ -5,20 +5,6 @@
 Dippy is a GUI desktop app for task management.
 Dippy can record your tasks, help you find tasks, and sort your tasks.
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
 ## Listing Saved Tasks
 
 Display the current list of tasks.
